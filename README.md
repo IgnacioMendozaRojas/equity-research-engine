@@ -88,6 +88,19 @@ Assumptions are plain YAML: a deck is a `{year: value}` map, extended at a growt
 - **News**: Google News RSS by default. Licensed sources (Factiva, Bloomberg, Refinitiv) plug in as local CSV exports. They are git-ignored, and licensed content is never committed.
 - SQM inputs are listed with their source in `companies/sqm/data/*.csv` and the "Sources" section of each report.
 
+## Validation: CMF vs SEC for SQM
+
+SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. Run on 19 Oct 2026 for 2020-2024: 24 concepts × 5 years, 110 of 120 values agree within 0.5%. Nine of the ten differences are one event. The SEC series uses the FY2024 20-F, which restated 2023 for the US$1.1bn specific mining tax. The CMF filings are as originally filed, with the charge in 2024:
+
+| Concept | Year | CMF vs SEC | Explanation |
+|---|---|---|---|
+| Income tax | 2023 | US$787m vs US$1,877m | charge moved into 2023 by the restatement |
+| Income tax | 2024 | US$1,372m vs US$283m | charge booked in 2024 in the original filing |
+| Net income, total and to owners | 2023, 2024 | differ by the charge | same |
+| Equity, total assets | 2023 | +24%, +9% | restatement reduced equity and the tax receivable |
+| Cash from operations | 2023 | 9% | reclassification in the restated cash flow |
+| Total assets | 2021 | 1.9% | not yet explained |
+
 ## Roadmap
 
 - Second company from CMF filings only (a Chilean issuer without SEC filings)
