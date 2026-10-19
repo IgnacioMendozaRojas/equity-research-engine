@@ -90,7 +90,7 @@ Assumptions are plain YAML: a deck is a `{year: value}` map, extended at a growt
 
 ## Validation: CMF vs SEC for SQM
 
-SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. Run on 19 Oct 2026 for 2020-2024: 24 concepts × 5 years, 110 of 120 values agree within 0.5%. Nine of the ten differences are one event. The SEC series uses the FY2024 20-F, which restated 2023 for the US$1.1bn specific mining tax. The CMF filings are as originally filed, with the charge in 2024:
+SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. Run on 19 Oct 2026 for 2020-2024: 24 concepts × 5 years compared; all but ten values agree within 0.5%. Nine of the ten differences are one event. The SEC series uses the FY2024 20-F, which restated 2023 for the US$1.1bn specific mining tax. The CMF filings are as originally filed, with the charge in 2024:
 
 | Concept | Year | CMF vs SEC | Explanation |
 |---|---|---|---|
