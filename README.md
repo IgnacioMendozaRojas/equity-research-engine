@@ -45,6 +45,8 @@ eqr value companies/sqm 2026-10-16 --sims 10000
 
 eqr report companies/sqm                 # writes companies/sqm/reports/*.md and figures
 SEC_USER_AGENT="Your Name you@mail.com" eqr fetch-sec companies/sqm   # rebuild financials from SEC XBRL
+eqr fetch-cmf companies/sqm --years 2018-2025   # same from the CMF's IFRS XBRL filings (Chilean issuers)
+eqr reconcile companies/sqm              # CMF vs SEC, concept by concept
 eqr news companies/sqm --days 30         # headlines tagged by risk category
 eqr news companies/sqm --csv my_factiva_export.csv   # same, from a licensed terminal export
 ```
@@ -53,7 +55,8 @@ eqr news companies/sqm --csv my_factiva_export.csv   # same, from a licensed ter
 
 ```
 data/            providers             model/                 valuation/                 report/
-SEC EDGAR XBRL ─┐                      calibrate: unit        wacc: CAPM + CRP, beta    markdown: CFA sections,
+SEC EDGAR XBRL ─┐
+CMF XBRL filings┤                      calibrate: unit        wacc: CAPM + CRP, beta    markdown: CFA sections,
 CMF API (FX/UF) ├─► company folder ──► economics from    ──► blended by EBITDA     ──► answer first, numbers
 News (RSS/CSV) ─┘   data/*.csv         history               dcf: mid-year, bridge     filled from the model
                     assumptions/*.yaml projection: segments  rim: clean surplus        figures: light + dark
@@ -80,13 +83,14 @@ Assumptions are plain YAML: a deck is a `{year: value}` map, extended at a growt
 ## Data and licensing
 
 - **SEC EDGAR XBRL** (free, no key): annual statements for any 10-K, 20-F or 40-F filer. The latest filing wins, so restated comparatives replace originally reported figures. That matters for SQM's 2023 numbers.
-- **CMF Chile API** (free key): USD/CLP, UF and other indicators. The CMF does not serve issuers' financial statements through its API. A downloader for the XBRL statements on the CMF website is next on the roadmap.
+- **CMF Chile, issuers' statements**: every Chilean issuer files its IFRS statements quarterly as an XBRL package (taxonomy CL-CI, an IFRS extension) on cmfchile.cl. `eqr fetch-cmf` finds the package on the issuer's financial-information page, caches it, and reads the consolidated year-to-date facts with a small XBRL parser. It uses the same `ifrs-full` concepts as the SEC connector, so `eqr reconcile` can check one source against the other for dual-listed companies. Packages saved by hand into `data/.cmf-cache/` also work, with `--offline`.
+- **CMF Chile API** (free key): USD/CLP, UF and other indicators.
 - **News**: Google News RSS by default. Licensed sources (Factiva, Bloomberg, Refinitiv) plug in as local CSV exports. They are git-ignored, and licensed content is never committed.
 - SQM inputs are listed with their source in `companies/sqm/data/*.csv` and the "Sources" section of each report.
 
 ## Roadmap
 
-- CMF issuer statements (XBRL) for Chilean companies without SEC filings
+- Second company from CMF filings only (a Chilean issuer without SEC filings)
 - Peer multiples from public filings, for a market-approach cross-check
 - Scheduled refresh: a GitHub Action that pulls new filings and news and re-renders the reports
 - Excel export of the projection for reviewers who live in spreadsheets
@@ -94,7 +98,7 @@ Assumptions are plain YAML: a deck is a `{year: value}` map, extended at a growt
 ## Tests
 
 ```bash
-pytest       # 28 tests: closed-form DCF, Corfo brackets, regimes, SEC parsing, SQM data checks, report rendering
+pytest       # 36 tests: closed-form DCF, Corfo brackets, regimes, SEC and CMF XBRL parsing, SQM data checks, report rendering
 ruff check .
 ```
 

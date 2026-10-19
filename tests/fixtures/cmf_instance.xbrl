@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic CL-CI style instance: consolidated contexts, one dimensional context,
+     a quarter-only flow and a prior-year comparative, values in US$. -->
+<xbrli:xbrl xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:ifrs-full="http://xbrl.ifrs.org/taxonomy/2020-03-16/ifrs-full"
+  xmlns:cl-ci="http://www.cmfchile.cl/cl/fr/ci/2021-01-04" xmlns:xbrldi="http://xbrl.org/2006/xbrldi"
+  xmlns:iso4217="http://www.xbrl.org/2003/iso4217" xmlns:link="http://www.xbrl.org/2003/linkbase">
+  <xbrli:context id="YTD"><xbrli:entity><xbrli:identifier scheme="http://www.cmfchile.cl">93007000-9</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2024-01-01</xbrli:startDate><xbrli:endDate>2024-12-31</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="PY"><xbrli:entity><xbrli:identifier scheme="http://www.cmfchile.cl">93007000-9</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2023-01-01</xbrli:startDate><xbrli:endDate>2023-12-31</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="Q4"><xbrli:entity><xbrli:identifier scheme="http://www.cmfchile.cl">93007000-9</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2024-10-01</xbrli:startDate><xbrli:endDate>2024-12-31</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:context id="EOP"><xbrli:entity><xbrli:identifier scheme="http://www.cmfchile.cl">93007000-9</xbrli:identifier></xbrli:entity>
+    <xbrli:period><xbrli:instant>2024-12-31</xbrli:instant></xbrli:period></xbrli:context>
+  <xbrli:context id="SEG_LI"><xbrli:entity><xbrli:identifier scheme="http://www.cmfchile.cl">93007000-9</xbrli:identifier>
+    <xbrli:segment><xbrldi:explicitMember dimension="ifrs-full:SegmentsAxis">cl-ci:LithiumMember</xbrldi:explicitMember></xbrli:segment></xbrli:entity>
+    <xbrli:period><xbrli:startDate>2024-01-01</xbrli:startDate><xbrli:endDate>2024-12-31</xbrli:endDate></xbrli:period></xbrli:context>
+  <xbrli:unit id="USD"><xbrli:measure>iso4217:USD</xbrli:measure></xbrli:unit>
+  <ifrs-full:Revenue contextRef="YTD" unitRef="USD" decimals="-3">4528761000</ifrs-full:Revenue>
+  <ifrs-full:Revenue contextRef="PY" unitRef="USD" decimals="-3">7467490000</ifrs-full:Revenue>
+  <ifrs-full:Revenue contextRef="Q4" unitRef="USD" decimals="-3">1100000000</ifrs-full:Revenue>
+  <ifrs-full:Revenue contextRef="SEG_LI" unitRef="USD" decimals="-3">2241300000</ifrs-full:Revenue>
+  <ifrs-full:CostOfSales contextRef="YTD" unitRef="USD" decimals="-3">-3201654000</ifrs-full:CostOfSales>
+  <ifrs-full:CashAndCashEquivalents contextRef="EOP" unitRef="USD" decimals="-3">1377851000</ifrs-full:CashAndCashEquivalents>
+  <cl-ci:ComentarioAdicional contextRef="EOP">texto</cl-ci:ComentarioAdicional>
+</xbrli:xbrl>

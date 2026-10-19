@@ -1,4 +1,4 @@
-"""Command line: `eqr value`, `eqr report`, `eqr fetch-sec`, `eqr news`."""
+"""Command line: value, report, fetch-sec, fetch-cmf, reconcile, news."""
 
 from __future__ import annotations
 
@@ -66,6 +66,50 @@ def _fetch_sec(args) -> int:
     return 0
 
 
+def _years(spec: str) -> list[int]:
+    lo, _, hi = spec.partition("-")
+    return list(range(int(lo), int(hi or lo) + 1))
+
+
+def _fetch_cmf(args) -> int:
+    import yaml
+
+    from .data.cmf import CmfFilings
+
+    root = Path(args.company)
+    cfg = yaml.safe_load((root / "company.yaml").read_text())
+    rut = args.rut or cfg.get("cmf_rut")
+    if not rut:
+        print("set --rut or cmf_rut in company.yaml (RUT without check digit, e.g. 93007000)", file=sys.stderr)
+        return 2
+    concepts = cfg.get("cmf_concepts") or cfg["sec_concepts"]
+    filings = CmfFilings(root / "data" / ".cmf-cache", offline=args.offline)
+    table = filings.financials(rut, _years(args.years), concepts, month=args.month)
+    out = root / "data" / "financials_cmf.csv"
+    table.round(3).to_csv(out, index_label="concept")
+    print(f"wrote {out} ({table.shape[1]} periods)")
+    return 0
+
+
+def _reconcile(args) -> int:
+    """Compare two financials files concept by concept (e.g. CMF vs SEC for a dual-listed issuer)."""
+    root = Path(args.company) / "data"
+    a = pd.read_csv(root / args.left, comment="#", index_col="concept")
+    b = pd.read_csv(root / args.right, comment="#", index_col="concept")
+    years = sorted(set(a.columns) & set(b.columns))
+    concepts = sorted(set(a.index) & set(b.index))
+    diff = (a.loc[concepts, years] - b.loc[concepts, years]).abs()
+    rel = diff / b.loc[concepts, years].abs().where(lambda x: x > 0)
+    flagged = rel.stack()[rel.stack() > args.tolerance]
+    print(
+        f"{len(concepts)} concepts x {len(years)} years compared; "
+        f"{len(flagged)} differ by more than {args.tolerance:.1%}"
+    )
+    if len(flagged):
+        print(flagged.rename("relative difference").to_string())
+    return 1 if len(flagged) else 0
+
+
 def _news(args) -> int:
     import yaml
 
@@ -103,6 +147,21 @@ def main(argv: list[str] | None = None) -> int:
     f.add_argument("company")
     f.add_argument("--user-agent")
     f.set_defaults(func=_fetch_sec)
+
+    c = sub.add_parser("fetch-cmf", help="rebuild financials from CMF XBRL filings (Chilean issuers)")
+    c.add_argument("company")
+    c.add_argument("--rut", help="RUT without check digit; defaults to cmf_rut in company.yaml")
+    c.add_argument("--years", default="2018-2025", help="e.g. 2018-2025 or 2024")
+    c.add_argument("--month", type=int, default=12, help="12 for annual; 3, 6 or 9 for interim (year to date)")
+    c.add_argument("--offline", action="store_true", help="only use packages already in data/.cmf-cache")
+    c.set_defaults(func=_fetch_cmf)
+
+    k = sub.add_parser("reconcile", help="compare two financials files in a company's data folder")
+    k.add_argument("company")
+    k.add_argument("--left", default="financials_cmf.csv")
+    k.add_argument("--right", default="financials.csv")
+    k.add_argument("--tolerance", type=float, default=0.005)
+    k.set_defaults(func=_reconcile)
 
     n = sub.add_parser("news", help="latest headlines tagged by risk category")
     n.add_argument("company")

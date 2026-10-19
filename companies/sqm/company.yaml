@@ -4,6 +4,7 @@ tickers:
   nyse: SQM          # ADR, 1 ADR = 1 Series B share
   santiago: SQM-B
 sec_cik: 909037
+cmf_rut: 93007000          # RUT 93.007.000-9; IFRS XBRL filings on cmfchile.cl
 reporting_currency: USD
 sector: Chemicals and non-metallic mining (lithium, iodine, specialty plant nutrition, potassium)
 
@@ -16,7 +17,8 @@ segments:
   industrial: Industrial chemicals (industrial nitrates, solar salts)
   other: Other commodity fertilizers and other income
 
-# SEC XBRL concepts used to rebuild data/financials.csv (eqr fetch).
+# XBRL concepts used to rebuild data/financials.csv (eqr fetch-sec / fetch-cmf: CMF's CL-CI
+# taxonomy extends IFRS, so the same ifrs-full concepts apply).
 sec_concepts:
   Revenue: {tags: ["ifrs-full:Revenue"]}
   CostOfSales: {tags: ["ifrs-full:CostOfSales"], abs: true}
