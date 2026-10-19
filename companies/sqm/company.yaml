@@ -1,0 +1,54 @@
+name: Sociedad Química y Minera de Chile S.A.
+short_name: SQM
+tickers:
+  nyse: SQM          # ADR, 1 ADR = 1 Series B share
+  santiago: SQM-B
+sec_cik: 909037
+reporting_currency: USD
+sector: Chemicals and non-metallic mining (lithium, iodine, specialty plant nutrition, potassium)
+
+segments:
+  lithium: Lithium and derivatives (Chile, Salar de Atacama; Nova Andino Litio from 2025)
+  lithium_intl: International lithium (Mt Holland, Australia; spodumene and hydroxide)
+  spn: Specialty plant nutrition
+  iodine: Iodine and derivatives
+  potassium: Potassium chloride and potassium sulfate
+  industrial: Industrial chemicals (industrial nitrates, solar salts)
+  other: Other commodity fertilizers and other income
+
+# SEC XBRL concepts used to rebuild data/financials.csv (eqr fetch).
+sec_concepts:
+  Revenue: {tags: ["ifrs-full:Revenue"]}
+  CostOfSales: {tags: ["ifrs-full:CostOfSales"], abs: true}
+  GrossProfit: {tags: ["ifrs-full:GrossProfit"]}
+  AdministrativeExpense: {tags: ["ifrs-full:AdministrativeExpense"], abs: true}
+  DepreciationAndAmortisation: {tags: ["ifrs-full:DepreciationAndAmortisationExpense"], abs: true}
+  FinanceCosts: {tags: ["ifrs-full:FinanceCosts"], abs: true}
+  ProfitBeforeTax: {tags: ["ifrs-full:ProfitLossBeforeTax"]}
+  IncomeTax: {tags: ["ifrs-full:IncomeTaxExpenseContinuingOperations"]}
+  ProfitLoss: {tags: ["ifrs-full:ProfitLoss"]}
+  ProfitAttributableToOwners: {tags: ["ifrs-full:ProfitLossAttributableToOwnersOfParent"]}
+  CashAndCashEquivalents: {tags: ["ifrs-full:CashAndCashEquivalents"]}
+  OtherCurrentFinancialAssets: {tags: ["ifrs-full:OtherCurrentFinancialAssets"]}
+  TradeAndOtherCurrentReceivables: {tags: ["ifrs-full:TradeAndOtherCurrentReceivables"]}
+  Inventories: {tags: ["ifrs-full:Inventories"]}
+  TradeAndOtherCurrentPayables: {tags: ["ifrs-full:TradeAndOtherCurrentPayables"]}
+  PropertyPlantAndEquipment: {tags: ["ifrs-full:PropertyPlantAndEquipment"]}
+  Assets: {tags: ["ifrs-full:Assets"]}
+  OtherCurrentFinancialLiabilities: {tags: ["ifrs-full:OtherCurrentFinancialLiabilities"]}
+  OtherNoncurrentFinancialLiabilities: {tags: ["ifrs-full:OtherNoncurrentFinancialLiabilities"]}
+  Equity: {tags: ["ifrs-full:Equity"]}
+  NoncontrollingInterests: {tags: ["ifrs-full:NoncontrollingInterests"]}
+  CashFromOperations: {tags: ["ifrs-full:CashFlowsFromUsedInOperatingActivities"]}
+  PurchaseOfPPE: {tags: ["ifrs-full:PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities"], abs: true}
+  DividendsPaid: {tags: ["ifrs-full:DividendsPaidClassifiedAsFinancingActivities"], abs: true}
+
+# News: query and the keywords that map headlines to the report's risk categories.
+news:
+  query: SQM lithium Chile
+  risk_keywords:
+    commodity_prices: [lithium price, lithium prices, iodine price, oversupply, price slump, carbonate]
+    concession_and_state: [Codelco, Corfo, Novandino, Nova Andino, nationalization, royalty, concession]
+    tax_and_legal: [tax, SII, lawsuit, court, fine]
+    water_and_environment: [water, brine, environmental, Atacama, indigenous]
+    demand: [EV, electric vehicle, battery, energy storage]

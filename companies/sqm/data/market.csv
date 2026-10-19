@@ -1,0 +1,13 @@
+# Market inputs. Values as published; see source column.
+date,item,value,unit,source
+2020-10-16,share_price_b,27158,CLP,"Santiago Stock Exchange close (SQM-B.SN via Yahoo Finance)"
+2020-10-16,fx_clp_usd,785.5,CLP per USD,"Spot CLP per USD on the valuation date (Banco Central de Chile observed rate)"
+2020-10-16,rf_20y,0.0123,decimal,"US Treasury 20-year constant maturity yield"
+2020-10-16,shares_outstanding,263.196524,million,"SEC XBRL dei:EntityCommonStockSharesOutstanding (FY2020)"
+2026-10-16,share_price_adr,60.23,USD,"NYSE close (SQM ADR = 1 Series B share), Fox Business quote page"
+2026-10-02,share_price_b,63840,CLP,"Santiago Stock Exchange close (SQM-B), MarketScreener"
+2026-09-30,rf_20y,0.0540,decimal,"FRED GS20 monthly average September 2026"
+2026-01-05,erp_mature,0.0423,decimal,"Damodaran country risk dataset January 2026 (Aaa total ERP)"
+2026-01-05,crp_chile,0.0110,decimal,"Damodaran country risk dataset January 2026 (Chile CRP)"
+2026-10-16,shares_outstanding,285.637883,million,"263.2m + 22.4m Series B issued in the 2021 capital increase; consistent with 2025 EPS (588.1 / 2.06)"
+2026-10-12,lithium_carbonate_futures,15640,USD per t,"Guangzhou Futures Exchange most-active contract (104680 CNY/t), Mining Weekly"

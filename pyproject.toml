@@ -1,0 +1,39 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "equity-research-engine"
+version = "0.1.0"
+description = "Segment-driven equity valuation: public data in, CFA-style research report out"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Ignacio Mendoza Rojas" }]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.1",
+  "scipy>=1.11",
+  "matplotlib>=3.8",
+  "pyyaml>=6",
+  "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+eqr = "eqr.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eqr"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

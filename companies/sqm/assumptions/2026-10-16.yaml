@@ -1,0 +1,141 @@
+# SQM valuation as of 16 October 2026.
+# Historical inputs come from data/; everything below is an analyst assumption unless a
+# source is given. Money in US$ millions, volumes in kt, prices in US$/t.
+
+valuation_date: 2026-10-16
+label: "October 2026"
+first_year: 2026
+horizon: 2060
+balance_year: 2025            # Dec-2025 balance from the 4Q2025 release
+cash_flows_from: 2026-01-01
+bridge:
+  # Codelco's 50% + 1 share of Nova Andino sits in minority interests (US$2,363m at Dec-2025).
+  # Future lithium cash flows are already modelled as SQM's share, so the book value of
+  # Codelco's claim on the existing net assets is the right deduction.
+  minority_interest: 2362.6
+  other: -300.0               # assumption: 2026 dividends paid before the valuation date (not disclosed in 1H2026)
+
+shares: 285.637883            # million
+share_price: 60.23            # US$, NYSE ADR close 16-Oct-2026 (1 ADR = 1 Series B share)
+currency_local: USD
+fx: 1.0
+
+inflation: 0.02
+tax_rate: 0.27
+terminal_growth: 0.02
+admin_pct_revenue: 0.043      # 2025 administrative expense / revenue
+# working capital, 2022-2024 averages 0.12 / 0.47 / 0.12; Dec-2025 inventories 0.64 of cash cost
+receivables_pct_revenue: 0.13   # trade receivables / revenue
+inventory_pct_cost: 0.55        # inventories / cash cost of sales
+payables_pct_cost: 0.13         # trade payables / cash cost of sales
+depreciation_rate: 0.095      # 2025 D&A / opening PP&E
+opening_ppe: 4839.5           # PP&E Dec-2025
+rim_omega: 0.6
+
+weights: {dcf: 0.7, rim: 0.3}
+rating_bands: {buy: 0.15, sell: -0.15}
+
+discount:
+  rf: 0.054                   # US Treasury 20y, September 2026 average (FRED GS20)
+  erp: 0.0423                 # Damodaran mature-market ERP, January 2026
+  crp: 0.011                  # Damodaran Chile country risk premium, January 2026
+  crp_exposure: 1.0
+  beta_unlevered: {lithium: 1.20, chemicals: 0.85}
+  debt_to_equity: 0.25        # gross debt US$4.7bn vs market cap about US$17bn
+  credit_spread: 0.015
+
+beta_groups: {lithium: lithium, lithium_intl: lithium, potassium: chemicals, spn: chemicals,
+              iodine: chemicals, industrial: chemicals, other: chemicals}
+
+sensitivity_segment: lithium
+
+segments:
+  lithium:                    # Nova Andino Litio (SQM-Codelco), Salar de Atacama
+    ppe_share: 0.52           # 2025 cost-of-sales share
+    # 2026: production guidance 280-290 kt LCE; quota 280-300 kt a year from 2031
+    volume: {2026: 275, 2027: 285, 2028: 295, 2029: 300, 2030: 300, 2031: 290}
+    # 1H2026 realised about US$20,000/t (Q2 US$21,800/t); futures fell to about
+    # US$15,600/t in October 2026. Deck: US$15,000/t from 2028, then inflation.
+    price: {2026: 18000, 2027: 15500, 2028: 15000}
+    price_growth: 0.02
+    cash_cost_per_t: 4300     # ex lease and levies; 2024-2025 calibration US$4,100-5,300/t
+    cost_base_year: 2025
+    royalty: {brackets: corfo_lithium_carbonate, until: 2030}
+    levies:
+      - {pct_revenue: 0.017, until: 2030}
+      - {fixed: 30, until: 2030}
+    maintenance_capex_pct: 0.06
+    capacity: {2026: 280, 2028: 300, 2030: 320}
+    expansion_cost_per_t: 9000
+    regimes:
+      # Public terms: the state captures about 70% of the operating margin to 2030 and 85%
+      # from 2031 to 2060 (taxes, Corfo payments, Codelco's profits). The 2026-2030 share is
+      # calibrated to 1H2026: attributable net income of US$1,025m at ~US$20,000/t implies
+      # SQM kept about 40% of Nova Andino's margin (examples/calibrate_novandino.py). 2031+ uses the
+      # headline 15%.
+      - {from: 2026, to: 2030, type: margin_share, share: 0.40}
+      - {from: 2031, to: 2060, type: margin_share, share: 0.15}
+    terminal: none
+  lithium_intl:               # Mt Holland (Australia), SQM's attributable share; limited disclosure
+    ppe_share: 0.05
+    volume: {2026: 175, 2027: 190}       # kt SC6 spodumene; 1H2026 86 kt
+    price: {2026: 1900, 2027: 1500, 2028: 1450}   # US$/t SC6; Q2 2026 about US$2,050/t
+    price_growth: 0.02
+    cash_margin: 0.30
+    maintenance_capex_pct: 0.08
+    regimes:
+      - {from: 2026, to: 2060, type: corporate}
+    terminal: none
+  potassium:
+    ppe_share: 0.045
+    volume: {2026: 300}
+    price: {2026: 500}
+    cash_margin: 0.22
+    maintenance_capex_pct: 0.05
+    regimes:
+      - {from: 2026, to: 2030, type: corporate}
+      - {from: 2031, to: 2060, type: margin_share, share: 0.15}
+    terminal: none
+  spn:
+    ppe_share: 0.23
+    volume: {2026: 1110}      # guidance: +10% vs 2025
+    volume_growth: 0.015
+    price: {2026: 1040}
+    cash_margin: 0.30         # 2023-2025 range 0.27-0.28; 2016-2022 0.33-0.42
+    maintenance_capex_pct: 0.05
+  iodine:
+    ppe_share: 0.14
+    volume: {2026: 15.5, 2027: 16.0}     # 2026 production guidance about 15.5 kt
+    volume_growth: 0.02
+    price: {2026: 73000, 2027: 66000, 2028: 60000}   # record ~US$73/kg in Q2 2026; assumed to ease
+    cash_margin: 0.58         # 2022-2025 range 0.59-0.63
+    maintenance_capex_pct: 0.06
+  industrial:
+    ppe_share: 0.01
+    volume: {2026: 55}
+    volume_growth: 0.02
+    price: {2026: 1450}
+    cash_margin: 0.40
+    maintenance_capex_pct: 0.05
+  other:
+    ppe_share: 0.005
+    volume: {2026: 1}
+    price: {2026: 32000}
+    cash_margin: 0.10
+
+montecarlo:
+  segments: [lithium, iodine, spn, potassium]
+  phi: 0.7
+  seed: 7
+
+scenarios:
+  bear:
+    _description: "Lithium falls back to US$11,000/t from 2027"
+    segments:
+      lithium:
+        price: {2026: 17000, 2027: 12000, 2028: 11000}
+  bull:
+    _description: "Lithium holds US$20,000/t"
+    segments:
+      lithium:
+        price: {2026: 19000, 2027: 20000, 2028: 20000}

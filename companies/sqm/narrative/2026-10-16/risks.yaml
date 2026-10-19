@@ -1,0 +1,50 @@
+# Probability and impact on a 1-5 scale; ordered by probability x impact in the report.
+- id: M1
+  name: Lithium price
+  category: commodity_prices
+  probability: 5
+  impact: 5
+  text: The single largest driver. Each 15% on the long-run deck moves value by about US$4-5 per share (sensitivity table). The progressive Corfo lease and the state take soften both the downside and the upside.
+  mitigant: Low position on the cost curve; the state shares the downside as well as the upside.
+- id: M2
+  name: Iodine price normalisation
+  category: commodity_prices
+  probability: 4
+  impact: 4
+  text: Iodine is at record prices and about a third of the enterprise value. The deck already assumes about US$60/kg from 2028, below the 2026 level.
+  mitigant: Concentrated supply and slow capacity additions.
+- id: R1
+  name: State take and Nova Andino terms
+  category: concession_and_state
+  probability: 3
+  impact: 4
+  text: The public terms give the state's share of the margin only as a headline. The 2026-2030 share is calibrated to reported earnings; the 2031-2060 share of about 15% is not yet observable.
+  mitigant: Signed agreement through 2060; SQM manages the operation until 2030.
+- id: L1
+  name: Tax and legal disputes
+  category: tax_and_legal
+  probability: 3
+  impact: 3
+  text: The specific mining tax claim (US$1.1bn booked in 2024) is under appeal. A broader reading by the tax authority could reach future years.
+  mitigant: Already provisioned; the outcome of the appeal could release part of it.
+- id: O1
+  name: Water, permits and community relations
+  category: water_and_environment
+  probability: 3
+  impact: 3
+  text: Brine and water limits cap volumes. The 2031-2060 quota depends on new permits and on the indigenous consultation.
+  mitigant: Brine-reduction and water plans; the state partner aligns incentives.
+- id: O2
+  name: Project execution
+  category: water_and_environment
+  probability: 3
+  impact: 2
+  text: About US$3bn of capex in 2026-2028, the ramp-up of the Mt Holland refinery, and Chilean expansions.
+  mitigant: Projects are staged; sustaining capex is about US$300m a year.
+- id: F1
+  name: Currency and costs
+  category: demand
+  probability: 2
+  impact: 2
+  text: Revenue is in dollars and a large part of costs is in pesos; a stronger peso squeezes margins.
+  mitigant: Hedging; a weaker peso usually comes with weaker commodity prices.

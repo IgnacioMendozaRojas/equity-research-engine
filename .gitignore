@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+dist/
+*.egg-info/
+# SEC response cache and licensed news exports stay local
+**/.sec-cache/
+**/news_exports/
+.env

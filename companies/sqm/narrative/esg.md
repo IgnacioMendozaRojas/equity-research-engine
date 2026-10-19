@@ -1,0 +1,7 @@
+**Environment: water and brine are the license to operate.** Lithium in the Atacama is extracted by evaporating brine in one of the driest places on earth. Pumping limits and fresh-water rights are therefore the binding environmental constraints, and they are the issues that local communities and regulators press on. SQM's stated plans are to cut brine extraction and fresh-water use, and to make its products carbon neutral. Delivery against those plans is what matters for the 2031-2060 operating permits under Nova Andino.
+
+**Social: indigenous consultation is now part of the deal.** Corfo is leading the indigenous consultation that the Nova Andino agreement requires. The 2018 Corfo lease already directs contributions to the region: 1.7% of SQM Salar's sales, US$10-15m a year to the communities, and US$10.8-18.9m a year to research and development.
+
+**Governance: a state partner and a strategic shareholder.** From 2031 Codelco controls Nova Andino's board and management. Tianqi Lithium, a competitor, holds about 24% of SQM. In 2017 SQM settled US Foreign Corrupt Practices Act charges with the SEC and the Department of Justice over improper payments in Chile. The 2024-2025 dispute with Chile's tax authority over the specific mining tax on lithium is still open; SQM booked US$1.1bn and is contesting it.
+
+**How ESG enters the numbers.** We do not add an ESG premium to the discount rate. Each risk sits where it would hit cash flows: water and permits in volumes, the state take in the fiscal regime, and taxes in the bridge.

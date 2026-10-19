@@ -1,0 +1,12 @@
+# SQM ADR monthly prices (USD). price = as traded; adjusted = dividend-adjusted (total-return proxy).
+# Source: digrin.com monthly price history, retrieved 2026-10-19. Monthly rows, not daily closes.
+month,price,adjusted
+2020-10,37.01,31.84
+2020-12,49.09,42.23
+2021-03,53.07,45.66
+2021-12,50.43,44.50
+2022-12,79.84,74.22
+2023-12,60.22,58.87
+2024-12,36.36,35.65
+2025-12,68.80,67.46
+2026-10,60.20,60.20

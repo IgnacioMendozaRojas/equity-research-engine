@@ -1,0 +1,75 @@
+# SQM revenue (US$ m), sales volume (thousand metric tons) and share of consolidated gross profit by business line.
+# Source: SQM full-year earnings releases (Form 6-K) for 2016, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025;
+# each release also reports the prior year's revenue and volume. Gross-profit shares are the company's
+# "approximate allocation" and are only published for the release year (2015 and 2017 not available).
+# Industrial chemicals volume = industrial nitrates. 2025 lithium = Nova Andino Litio (Chile) only;
+# the International Lithium Division (Mt Holland spodumene) is reported separately; the 2025
+# lithium gross-profit share (45%) covers both lithium lines.
+year,segment,revenue,volume,gross_profit_share
+2015,lithium,223.0,38.7,
+2015,spn,652.3,831.9,
+2015,iodine,262.6,9.3,
+2015,potassium,430.6,1241.8,
+2015,industrial,97.6,126.1,
+2015,other,62.3,,
+2016,lithium,514.6,49.7,0.55
+2016,spn,623.9,840.8,0.24
+2016,iodine,231.1,10.2,0.07
+2016,potassium,403.3,1534.7,0.07
+2016,industrial,104.1,128.9,0.06
+2016,other,62.2,,
+2017,lithium,644.6,49.7,
+2017,spn,697.3,966.2,
+2017,iodine,252.1,12.7,
+2017,potassium,379.3,1344.3,
+2017,industrial,135.6,167.6,
+2017,other,48.5,,
+2018,lithium,734.8,45.1,0.53
+2018,spn,781.8,1082.6,0.22
+2018,iodine,325.0,13.3,0.14
+2018,potassium,267.5,831.8,0.06
+2018,industrial,108.3,135.9,0.05
+2018,other,48.5,,
+2019,lithium,505.7,45.1,0.36
+2019,spn,723.9,1041.9,0.27
+2019,iodine,371.0,12.7,0.25
+2019,potassium,212.2,597.3,0.06
+2019,industrial,94.9,123.5,0.06
+2019,other,36.0,,
+2020,lithium,383.4,64.6,0.18
+2020,spn,701.7,1036.4,0.34
+2020,iodine,334.7,9.7,0.34
+2020,potassium,209.3,726.7,0.05
+2020,industrial,160.6,225.1,0.09
+2020,other,27.6,,
+2021,lithium,936.1,101.1,0.40
+2021,spn,908.8,1154.7,0.24
+2021,iodine,437.9,12.3,0.18
+2021,potassium,416.6,893.2,0.15
+2021,industrial,132.0,174.5,0.02
+2021,other,30.8,,
+2022,lithium,8152.9,156.8,0.79
+2022,spn,1172.3,847.8,0.08
+2022,iodine,754.3,12.7,0.08
+2022,potassium,437.2,480.5,0.04
+2022,industrial,165.2,147.0,0.01
+2022,other,28.6,,
+2023,lithium,5180.1,170.0,0.72
+2023,spn,913.9,840.2,0.07
+2023,iodine,892.2,13.1,0.17
+2023,potassium,279.1,543.1,0.02
+2023,industrial,175.2,180.4,0.01
+2023,other,27.0,,
+2024,lithium,2241.3,204.9,0.433
+2024,spn,941.9,982.9,0.126
+2024,iodine,968.3,14.5,0.394
+2024,potassium,270.8,695.0,0.026
+2024,industrial,78.2,52.6,0.023
+2024,other,28.3,,
+2025,lithium,2138.7,233.1,0.45
+2025,lithium_intl,149.5,,
+2025,spn,982.4,1012.9,0.11
+2025,iodine,1042.8,14.5,0.42
+2025,potassium,155.5,327.6,0.01
+2025,industrial,75.4,51.0,0.02
+2025,other,31.9,,
