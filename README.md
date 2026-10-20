@@ -90,7 +90,7 @@ Assumptions are plain YAML: a deck is a `{year: value}` map, extended at a growt
 
 ## Validation: CMF vs SEC for SQM
 
-SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. Run on 19 Oct 2026 for 2020-2024: 24 concepts × 5 years compared; all but ten values agree within 0.5%. Nine of the ten differences are one event. The SEC series uses the FY2024 20-F, which restated 2023 for the US$1.1bn specific mining tax. The CMF filings are as originally filed, with the charge in 2024:
+SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. Run on 19 Oct 2026 for 2020-2024: 24 concepts × 5 years compared; all but ten values agree within 0.5%, and all ten are explained. The SEC series takes each year from the latest filing that reports it, so it carries later restatements; the CMF filings are as originally filed. Nine of the ten differences are one event: the FY2024 20-F restated 2023 for the US$1.1bn specific mining tax, which the original filings booked in 2024:
 
 | Concept | Year | CMF vs SEC | Explanation |
 |---|---|---|---|
@@ -99,7 +99,7 @@ SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` foll
 | Net income, total and to owners | 2023, 2024 | differ by the charge | same |
 | Equity, total assets | 2023 | +24%, +9% | restatement reduced equity and the tax receivable |
 | Cash from operations | 2023 | 9% | reclassification in the restated cash flow |
-| Total assets | 2021 | 1.9% | not yet explained |
+| Total assets | 2021 | US$7,044m vs US$7,180m | the FY2022 20-F re-presented the 2021 balance sheet: non-current assets and non-current liabilities both +US$136m, equity unchanged (deferred taxes netted differently, −US$77m on each side) |
 
 ## Roadmap
 
