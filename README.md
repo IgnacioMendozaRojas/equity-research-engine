@@ -112,16 +112,17 @@ Assumptions are plain YAML: a deck is a `{year: value}` map, extended at a growt
 
 ## Validation: CMF vs SEC for SQM
 
-SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. Run on 19 Oct 2026 for 2020-2024: 24 concepts × 5 years compared; all but ten values agree within 0.5%, and all ten are explained. The SEC series takes each year from the latest filing that reports it, so it carries later restatements; the CMF filings are as originally filed. Nine of the ten differences are one event: the FY2024 20-F restated 2023 for the US$1.1bn specific mining tax, which the original filings booked in 2024:
+SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` followed by `eqr reconcile` tests the CMF connector end to end. The monthly [`filings.yml`](.github/workflows/filings.yml) run of 21 Oct 2026 compared 24 concepts × 8 years (2018-2025): all but 14 values agree within 0.5%, and **every difference traces to a later filing that re-presented the year**. The SEC series takes each year from the latest filing that reports it; the CMF filings are as originally filed. 2025 matches in full.
 
 | Concept | Year | CMF vs SEC | Explanation |
 |---|---|---|---|
-| Income tax | 2023 | US$787m vs US$1,877m | charge moved into 2023 by the restatement |
-| Income tax | 2024 | US$1,372m vs US$283m | charge booked in 2024 in the original filing |
-| Net income, total and to owners | 2023, 2024 | differ by the charge | same |
-| Equity, total assets | 2023 | +24%, +9% | restatement reduced equity and the tax receivable |
-| Cash from operations | 2023 | 9% | reclassification in the restated cash flow |
-| Total assets | 2021 | US$7,044m vs US$7,180m | the FY2022 20-F re-presented the 2021 balance sheet: non-current assets and non-current liabilities both +US$136m, equity unchanged (deferred taxes netted differently, −US$77m on each side) |
+| Income tax, net income (total and to owners) | 2023, 2024 | e.g. tax US$787m vs US$1,877m in 2023 | the FY2024 20-F restated 2023 for the US$1.1bn specific mining tax, which the original filings booked in 2024 |
+| Equity, total assets, cash from operations | 2023 | +24%, +9%, 9% | same restatement (lower equity and tax receivable; reclassified cash flow) |
+| Total assets | 2021 | US$7,044m vs US$7,180m | the FY2022 20-F re-presented the 2021 balance sheet: non-current assets and liabilities both +US$136m, equity unchanged |
+| PPE, other financial liabilities | 2019 | PPE US$1,607m vs US$1,570m; liabilities −US$38m | the FY2020 20-F re-presented 2019: PPE −US$37m and financial liabilities −US$38m together, equity unchanged |
+| Finance costs | 2018 | US$59.9m vs US$57.8m | re-presented in the FY2019 20-F |
+
+The model uses the restated series ([`financials.csv`](companies/sqm/data/financials.csv)). None of the 2018-2021 re-presentations changes equity or the years that drive the valuation.
 
 ## Roadmap
 
