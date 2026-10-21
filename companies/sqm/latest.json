@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "id": "sqm-implied-lithium-price",
+  "repo": "equity-research-engine",
+  "title": "What lithium price is the market paying for in SQM?",
+  "question": "At today's share price, what long-run lithium price makes the model's value equal to the market?",
+  "as_of": "2026-10-16",
+  "frequency": "weekly",
+  "updated": "2026-10-21",
+  "source": "SQM daily close; model and assumptions of 2026-10-16",
+  "headline": "At US$60.23, SQM's share price implies lithium at about US$25,112/t in the long run; the model's deck uses US$15,000/t and gives US$42.23 per share (SELL).",
+  "metrics": [
+    {
+      "id": "share_price",
+      "label": "SQM share price",
+      "value": 60.23,
+      "unit": "USD",
+      "period": "2026-10-16",
+      "previous": null,
+      "change": null,
+      "change_type": "relative"
+    },
+    {
+      "id": "implied_long_run_lithium",
+      "label": "Long-run lithium price implied by the share price",
+      "value": 25112.1051,
+      "unit": "USD/t",
+      "period": "2026-10-16",
+      "previous": null,
+      "change": null,
+      "change_type": "relative"
+    },
+    {
+      "id": "deck_long_run_lithium",
+      "label": "Long-run lithium price in the model's deck",
+      "value": 15000.0,
+      "unit": "USD/t",
+      "period": "2026-10-16",
+      "previous": null,
+      "change": null,
+      "change_type": "relative"
+    },
+    {
+      "id": "target_price",
+      "label": "Model value per share (DCF + residual income)",
+      "value": 42.2292,
+      "unit": "USD",
+      "period": "2026-10-16",
+      "previous": null,
+      "change": null,
+      "change_type": "relative"
+    },
+    {
+      "id": "upside",
+      "label": "Upside to model value",
+      "value": -0.2989,
+      "unit": "share",
+      "period": "2026-10-16",
+      "previous": null,
+      "change": null,
+      "change_type": "points"
+    }
+  ],
+  "rating": "SELL",
+  "assumptions_date": "2026-10-16",
+  "figure": "companies/sqm/reports/figures/montecarlo-2026-10-16-light.png"
+}

@@ -16,6 +16,26 @@ The first case is **SQM** (Sociedad Química y Minera de Chile), valued twice:
 
 With perfect knowledge of 2020-2025, the 2020 value rises only from US$36.6 to US$43.6, while shareholders earned +89% including dividends. The 2022 lithium spike (US$52,000/t realised) mostly went to the Chilean state: the Corfo lease takes 40% of every dollar above US$10,000/t before income tax. The extra volume needed three to six times the capex. The Codelco agreement cuts SQM's share of the Atacama margin to about 15% from 2031. The rest of the return is the market's higher long-run lithium price.
 
+### Monitor
+
+Between full reports the assumptions stay fixed and the share price moves. A weekly workflow
+([`monitor.yml`](.github/workflows/monitor.yml)) fetches the latest close and recomputes the upside and the long-run
+lithium price the market is paying for; the result is in [`companies/sqm/latest.json`](companies/sqm/latest.json).
+
+<!-- latest:sqm:start -->
+**Monitor, 2026-10-16.** At US$60.23, SQM's share price implies lithium at about US$25,112/t in the long run; the model's deck uses US$15,000/t and gives US$42.23 per share (SELL).
+
+| Indicator | Value | As of |
+|---|---:|---|
+| SQM share price | US$60.23 | 2026-10-16 |
+| Long-run lithium price implied by the share price | US$25,112/t | 2026-10-16 |
+| Long-run lithium price in the model's deck | US$15,000/t | 2026-10-16 |
+| Model value per share (DCF + residual income) | US$42.23 | 2026-10-16 |
+| Upside to model value | -29.9% | 2026-10-16 |
+
+*Updated automatically on 2026-10-21: the share price moves, the assumptions stay those of the 2026-10-16 report until it is revised.*
+<!-- latest:sqm:end -->
+
 ## Why it is built this way
 
 I won the CFA Institute Research Challenge South America regional final (2020-21) with SQM. This repository is a rebuild from scratch with public data. The competition report and model belong to CFA Institute and are not here. The design fixes the errors that are easy to make in a spreadsheet valuation of a resource company:
@@ -49,6 +69,8 @@ eqr fetch-cmf companies/sqm --years 2018-2025   # same from the CMF's IFRS XBRL 
 eqr reconcile companies/sqm              # CMF vs SEC, concept by concept
 eqr news companies/sqm --days 30         # headlines tagged by risk category
 eqr news companies/sqm --csv my_factiva_export.csv   # same, from a licensed terminal export
+eqr fetch-price companies/sqm             # latest daily closes (needs ALPHAVANTAGE_API_KEY)
+eqr monitor companies/sqm                 # latest.json: upside and implied lithium price at the latest close
 ```
 
 ## How it works
@@ -105,13 +127,12 @@ SQM files the same IFRS statements with both regulators, so `eqr fetch-cmf` foll
 
 - Second company from CMF filings only (a Chilean issuer without SEC filings)
 - Peer multiples from public filings, for a market-approach cross-check
-- Scheduled refresh: a GitHub Action that pulls new filings and news and re-renders the reports
 - Excel export of the projection for reviewers who live in spreadsheets
 
 ## Tests
 
 ```bash
-pytest       # 36 tests: closed-form DCF, Corfo brackets, regimes, SEC and CMF XBRL parsing, SQM data checks, report rendering
+pytest       # 39 tests: closed-form DCF, Corfo brackets, regimes, SEC and CMF XBRL parsing, SQM data checks, report rendering
 ruff check .
 ```
 

@@ -9,3 +9,4 @@ dist/
 **/.sec-cache/
 **/news_exports/
 .env
+**/.cmf-cache/

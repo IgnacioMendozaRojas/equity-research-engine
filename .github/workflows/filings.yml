@@ -1,0 +1,43 @@
+name: Filings
+
+# Monthly: rebuild SQM's financials from its CMF XBRL filings and compare them with the
+# curated model inputs. New or restated figures show up as a diff in financials_cmf.csv and as
+# annotations; the model's own financials.csv is only changed by hand, after review.
+on:
+  schedule:
+    - cron: "29 6 7 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  filings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install --no-cache-dir .
+
+      - name: Annual statements from the CMF
+        run: eqr fetch-cmf companies/sqm --years "2018-$(( $(date -u +%Y) - 1 ))"
+
+      - name: Compare with the model inputs
+        run: |
+          eqr reconcile companies/sqm > reconcile.txt || true
+          head -1 reconcile.txt | sed 's/^/::notice title=CMF vs model inputs::/'
+
+      - name: Commit if the filings changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add companies/sqm/data/financials_cmf.csv
+          if git diff --cached --quiet; then
+            echo "::notice title=No new filings::financials_cmf.csv unchanged"
+          else
+            git commit -qm "Filings: SQM statements from the CMF"
+            git push
+          fi

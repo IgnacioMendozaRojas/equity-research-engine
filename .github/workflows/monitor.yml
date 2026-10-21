@@ -1,0 +1,45 @@
+name: Monitor
+
+# Weekly: latest SQM close -> companies/sqm/latest.json (upside and implied lithium price) and the
+# README monitor block. Needs the ALPHAVANTAGE_API_KEY repository secret; without it the run only
+# leaves a warning. The model's assumptions are not touched.
+on:
+  schedule:
+    - cron: "41 6 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install --no-cache-dir .
+
+      - name: Fetch the latest closes
+        env:
+          ALPHAVANTAGE_API_KEY: ${{ secrets.ALPHAVANTAGE_API_KEY }}
+        run: eqr fetch-price companies/sqm --soft
+
+      - name: Recompute and commit when the price moved
+        run: |
+          if git diff --quiet -- companies/sqm/data/prices_daily.csv; then
+            echo "::notice title=No new closes::latest.json left as it is"
+            exit 0
+          fi
+          eqr monitor companies/sqm
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add companies/sqm/data/prices_daily.csv companies/sqm/latest.json README.md
+          git commit -qm "Monitor: SQM close $(jq -r .as_of companies/sqm/latest.json)"
+          git push

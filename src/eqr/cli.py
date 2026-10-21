@@ -1,4 +1,4 @@
-"""Command line: value, report, fetch-sec, fetch-cmf, reconcile, news."""
+"""Command line: value, report, fetch-sec, fetch-cmf, reconcile, news, fetch-price, monitor."""
 
 from __future__ import annotations
 
@@ -126,6 +126,70 @@ def _news(args) -> int:
     return 0
 
 
+def _fetch_price(args) -> int:
+    import yaml
+
+    from .data import prices
+
+    root = Path(args.company)
+    cfg = yaml.safe_load((root / "company.yaml").read_text())
+    symbol = args.symbol or cfg["tickers"]["nyse"]
+    try:
+        closes = prices.alphavantage_daily(symbol)
+    except prices.PriceError as exc:
+        print(f"::warning title=No price update::{exc}" if os.getenv("GITHUB_ACTIONS") else f"no price update: {exc}")
+        return 0 if args.soft else 1
+    added = prices.append(root / "data" / "prices_daily.csv", closes, f"Alpha Vantage {symbol}")
+    print(f"{symbol}: {added} new closes, latest {closes['date'].iloc[-1]} at {closes['close'].iloc[-1]:,.2f}")
+    return 0
+
+
+def _monitor(args) -> int:
+    import re
+
+    from .data.store import load_company
+    from .valuation import monitor
+
+    c = load_company(args.company)
+    data = monitor.latest(c)
+    path = monitor.write(c, data)
+    print(f"wrote {path}: {data['headline']}")
+    readme = Path(args.readme)
+    if readme.exists():
+        tag = c.root.name
+        text = readme.read_text(encoding="utf-8")
+        block = _monitor_block(data)
+        pattern = rf"(<!-- latest:{tag}:start -->\n)(?:.*?\n)?(<!-- latest:{tag}:end -->)"
+        new = re.sub(pattern, lambda m: m.group(1) + block + "\n" + m.group(2), text, flags=re.S)
+        if new != text:
+            readme.write_text(new, encoding="utf-8")
+    return 0
+
+
+def _monitor_block(data: dict) -> str:
+    def fmt(x: dict) -> str:
+        v = x["value"]
+        if x["unit"] == "share":
+            return f"{v:+.1%}"
+        if x["unit"] == "USD/t":
+            return f"US${v:,.0f}/t"
+        return f"US${v:,.2f}"
+
+    rows = [f"| {x['label']} | {fmt(x)} | {x['period']} |" for x in data["metrics"]]
+    return "\n".join(
+        [
+            f"**Monitor, {data['as_of']}.** {data['headline']}",
+            "",
+            "| Indicator | Value | As of |",
+            "|---|---:|---|",
+            *rows,
+            "",
+            f"*Updated automatically on {data['updated']}: the share price moves, the assumptions stay those of "
+            f"the {data['assumptions_date']} report until it is revised.*",
+        ]
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="eqr", description="Equity research engine")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -170,6 +234,17 @@ def main(argv: list[str] | None = None) -> int:
     n.add_argument("--days", type=int, default=30)
     n.add_argument("--limit", type=int, default=25)
     n.set_defaults(func=_news)
+
+    fp = sub.add_parser("fetch-price", help="append the latest daily closes (Alpha Vantage, ALPHAVANTAGE_API_KEY)")
+    fp.add_argument("company")
+    fp.add_argument("--symbol", help="defaults to the NYSE ticker in company.yaml")
+    fp.add_argument("--soft", action="store_true", help="exit 0 when no price can be fetched (scheduled runs)")
+    fp.set_defaults(func=_fetch_price)
+
+    m = sub.add_parser("monitor", help="latest.json: upside and implied commodity price at the latest close")
+    m.add_argument("company")
+    m.add_argument("--readme", default="README.md", help="README with <!-- latest:<company>:start/end --> markers")
+    m.set_defaults(func=_monitor)
 
     args = p.parse_args(argv)
     return args.func(args)
