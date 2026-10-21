@@ -247,7 +247,7 @@ def render(v: Valuation, out_dir: Path, sims: int, retrospective: bool = False) 
         f"so the terminal value is only {v.dcf.terminal_share:.0%} of the enterprise value.\n\n"
     )
     seg_vals = {k: float(x[0]) for k, x in v.dcf.by_segment.items() if abs(float(x[0])) > 1}
-    figures.value_by_segment(seg_vals, short, fig_dir, f"value-by-segment-{date}", "Enterprise value by business line")
+    figures.value_by_segment(seg_vals, short, fig_dir, f"value-by-segment-{date}")
     md.append(_pic(f"value-by-segment-{date}", "Enterprise value by business line", rel))
     b = v.bridge
     bridge = pd.DataFrame(
@@ -378,8 +378,7 @@ def backtest_section(v: Valuation, fig_dir: Path, rel: str) -> str:
         fa["lithium_price_actual"] / 1000,
         fig_dir,
         "backtest-lithium-price",
-        "Lithium price: October 2020 deck vs realised",
-        "US$ thousand per tonne",
+        unit="US$ thousand per tonne",
     )
     md.append(_pic("backtest-lithium-price", "Lithium price forecast vs realised", rel))
     tbl = pd.DataFrame(
@@ -421,7 +420,6 @@ def backtest_section(v: Valuation, fig_dir: Path, rel: str) -> str:
         steps,
         fig_dir,
         "backtest-value-walk",
-        "October 2020 DCF value per share, adding hindsight",
         reference=("share price then", v.price_usd),
     )
     md.append("\n" + _pic("backtest-value-walk", "Value walk from the 2020 model to hindsight", rel))

@@ -2,7 +2,9 @@
 
 [![CI](https://github.com/IgnacioMendozaRojas/equity-research-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/IgnacioMendozaRojas/equity-research-engine/actions/workflows/ci.yml)
 
-A reusable equity valuation engine. Public filings go in; a CFA-style research report comes out, with every number traceable to a source or a stated assumption.
+**Equity valuation and investment analysis.** A reusable valuation engine: public filings go in, a CFA-style research report comes out, with every number traceable to a source or a stated assumption.
+
+> I won the CFA Institute Research Challenge South America regional final (2020-21) with my team, covering SQM, and evaluated investment projects on the investment committee of a Chilean clinic group (NPV, IRR, payback). This repository rebuilds that analysis as code, from public data only; the competition report and model belong to CFA Institute and are not here.
 
 The first case is **SQM** (Sociedad Química y Minera de Chile), valued twice:
 
@@ -36,9 +38,20 @@ lithium price the market is paying for; the result is in [`companies/sqm/latest.
 *Updated automatically on 2026-10-21: the share price moves, the assumptions stay those of the 2026-10-16 report until it is revised.*
 <!-- latest:sqm:end -->
 
+## What this shows
+
+| Task in equity research or investment analysis | Where it is done here |
+|---|---|
+| Build a driver-based forecast | Segments as volume × price with their own costs, capex and fiscal regimes ([`model/`](src/eqr/model)) |
+| Value the company two ways and reconcile them | DCF and residual income on the same projection, with a model-check table in each report ([`valuation/`](src/eqr/valuation)) |
+| Say what the market is pricing in | Implied long-run lithium price, recomputed weekly from the share price ([`monitor.py`](src/eqr/valuation/monitor.py)) |
+| Quantify uncertainty | 10,000 mean-reverting commodity price paths, scenarios and sensitivity tables |
+| Check a past call honestly | The October 2020 valuation held against what happened, step by step ([`backtest.py`](src/eqr/valuation/backtest.py)) |
+| Get the data without copying it by hand | SEC and CMF XBRL connectors, validated against each other; monthly filings workflow |
+
 ## Why it is built this way
 
-I won the CFA Institute Research Challenge South America regional final (2020-21) with SQM. This repository is a rebuild from scratch with public data. The competition report and model belong to CFA Institute and are not here. The design fixes the errors that are easy to make in a spreadsheet valuation of a resource company:
+The design fixes the errors that are easy to make in a spreadsheet valuation of a resource company:
 
 | Choice | Why |
 |---|---|
