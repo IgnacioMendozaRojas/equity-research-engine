@@ -120,7 +120,7 @@ class Chart:
         )
 
     def stack(self, x, columns: dict, labels: bool = True):
-        """Stacked areas in palette order, separated by a surface-colour gap, labelled at the right end."""
+        """Stacked areas in palette order with a surface-colour gap, labelled at the right end."""
         names = list(columns)
         self.ax.stackplot(
             x,
@@ -148,7 +148,7 @@ class Chart:
         self.ax.set_xlim(x[0], x[-1])
 
     def hbars(self, labels, values, fmt="{:,.0f}", highlight: set | None = None, sort: bool = True):
-        """Horizontal bars, largest on top (or in the given order), value at the tip; highlighted bars in slot 1."""
+        """Horizontal bars, largest on top (or as given), value at the tip; highlights in slot 1."""
         pairs = list(zip(labels, values, strict=True))
         pairs = sorted(pairs, key=lambda p: p[1]) if sort else pairs[::-1]
         ys = range(len(pairs))
