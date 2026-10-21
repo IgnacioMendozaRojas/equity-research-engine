@@ -42,7 +42,12 @@ def instance_from_zip(data: bytes) -> bytes:
 
 
 def parse_instance(data: bytes) -> pd.DataFrame:
-    """One row per numeric fact: concept, value, unit, decimals, start, end, instant, dimensions."""
+    """One row per numeric fact: concept, value, unit, decimals, start, end, instant, dimensions, members.
+
+    `dimensions` is the number of axes on the fact's context (0 = consolidated, no breakdown);
+    `members` holds them as a sorted tuple of (axis, member) QName pairs, e.g.
+    (("cl-ci:TramosMorosidadEje", "cl-ci:AlDiaMiembro"),). Typed members carry their text value.
+    """
     prefixes: dict[str, str] = {}
     for _event, item in ET.iterparse(io.BytesIO(data), events=("start-ns",)):
         prefix, uri = item
@@ -62,6 +67,7 @@ def parse_instance(data: bytes) -> pd.DataFrame:
             "end": _date(period.findtext(_q(XBRLI, "endDate"))),
             "instant": _date(period.findtext(_q(XBRLI, "instant"))),
             "dimensions": dims,
+            "members": tuple(sorted(dims.items())),
         }
 
     units = {}
@@ -93,9 +99,11 @@ def parse_instance(data: bytes) -> pd.DataFrame:
                 "end": c["end"] or c["instant"],
                 "instant": c["instant"] is not None,
                 "dimensions": len(c["dimensions"]),
+                "members": c["members"],
             }
         )
-    return pd.DataFrame(rows, columns=["concept", "value", "unit", "decimals", "start", "end", "instant", "dimensions"])
+    columns = ["concept", "value", "unit", "decimals", "start", "end", "instant", "dimensions", "members"]
+    return pd.DataFrame(rows, columns=columns)
 
 
 def period_values(facts: pd.DataFrame, period_end: dt.date, year_to_date: bool = True) -> pd.Series:

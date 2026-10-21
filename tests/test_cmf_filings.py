@@ -29,6 +29,9 @@ def test_parse_instance_reads_contexts_units_and_dimensions():
     assert set(facts["concept"]) == {"ifrs-full:Revenue", "ifrs-full:CostOfSales", "ifrs-full:CashAndCashEquivalents"}
     assert (facts["unit"] == "USD").all()
     assert facts["dimensions"].max() == 1
+    dimensional = facts[facts["dimensions"] == 1]["members"].unique().tolist()
+    assert dimensional == [(("ifrs-full:SegmentsAxis", "cl-ci:LithiumMember"),)]
+    assert (facts.loc[facts["dimensions"] == 0, "members"] == ()).all()
 
 
 def test_period_values_keep_consolidated_year_to_date_only():
