@@ -25,17 +25,17 @@ Between full reports the assumptions stay fixed and the share price moves. A wee
 lithium price the market is paying for; the result is in [`companies/sqm/latest.json`](companies/sqm/latest.json).
 
 <!-- latest:sqm:start -->
-**Monitor, 2026-11-16.** At US$51.13, SQM's share price implies lithium at about US$19,996/t in the long run; the model's deck uses US$15,000/t and gives US$42.23 per share (SELL).
+**Monitor, 2026-11-23.** At US$48.72, SQM's share price implies lithium at about US$18,643/t in the long run; the model's deck uses US$15,000/t and gives US$42.23 per share (HOLD).
 
 | Indicator | Value | As of |
 |---|---:|---|
-| SQM share price | US$51.13 | 2026-11-16 |
-| Long-run lithium price implied by the share price | US$19,996/t | 2026-11-16 |
+| SQM share price | US$48.72 | 2026-11-23 |
+| Long-run lithium price implied by the share price | US$18,643/t | 2026-11-23 |
 | Long-run lithium price in the model's deck | US$15,000/t | 2026-10-16 |
 | Model value per share (DCF + residual income) | US$42.23 | 2026-10-16 |
-| Upside to model value | -17.4% | 2026-11-16 |
+| Upside to model value | -13.3% | 2026-11-23 |
 
-*Updated automatically on 2026-11-17: the share price moves, the assumptions stay those of the 2026-10-16 report until it is revised.*
+*Updated automatically on 2026-11-24: the share price moves, the assumptions stay those of the 2026-10-16 report until it is revised.*
 <!-- latest:sqm:end -->
 
 ## What this shows

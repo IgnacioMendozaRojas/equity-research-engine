@@ -4,28 +4,28 @@
   "repo": "equity-research-engine",
   "title": "What lithium price is the market paying for in SQM?",
   "question": "At today's share price, what long-run lithium price makes the model's value equal to the market?",
-  "as_of": "2026-11-16",
+  "as_of": "2026-11-23",
   "frequency": "weekly",
-  "updated": "2026-11-17",
+  "updated": "2026-11-24",
   "source": "SQM daily close; model and assumptions of 2026-10-16",
-  "headline": "At US$51.13, SQM's share price implies lithium at about US$19,996/t in the long run; the model's deck uses US$15,000/t and gives US$42.23 per share (SELL).",
+  "headline": "At US$48.72, SQM's share price implies lithium at about US$18,643/t in the long run; the model's deck uses US$15,000/t and gives US$42.23 per share (HOLD).",
   "metrics": [
     {
       "id": "share_price",
       "label": "SQM share price",
-      "value": 51.13,
+      "value": 48.72,
       "unit": "USD",
-      "period": "2026-11-16",
-      "previous": 56.7,
-      "change": -0.0982,
+      "period": "2026-11-23",
+      "previous": 51.13,
+      "change": -0.0471,
       "change_type": "relative"
     },
     {
       "id": "implied_long_run_lithium",
       "label": "Long-run lithium price implied by the share price",
-      "value": 19996.4577,
+      "value": 18642.8341,
       "unit": "USD/t",
-      "period": "2026-11-16",
+      "period": "2026-11-23",
       "previous": null,
       "change": null,
       "change_type": "relative"
@@ -53,15 +53,15 @@
     {
       "id": "upside",
       "label": "Upside to model value",
-      "value": -0.1741,
+      "value": -0.1332,
       "unit": "share",
-      "period": "2026-11-16",
+      "period": "2026-11-23",
       "previous": null,
       "change": null,
       "change_type": "points"
     }
   ],
-  "rating": "SELL",
+  "rating": "HOLD",
   "assumptions_date": "2026-10-16",
   "figure": "companies/sqm/reports/figures/montecarlo-2026-10-16-light.png"
 }
